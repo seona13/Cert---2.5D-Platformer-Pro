@@ -23,7 +23,7 @@ public class MovingPlatform : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (transform.position == _pointA.position)
 		{
@@ -35,5 +35,23 @@ public class MovingPlatform : MonoBehaviour
 		}
 
         transform.position = Vector3.MoveTowards(transform.position, _target, _step);
+    }
+
+
+	void OnTriggerEnter(Collider other)
+	{
+        if (other.CompareTag("Player"))
+		{
+            other.transform.parent = this.transform;
+		}
+	}
+
+
+	void OnTriggerExit(Collider other)
+	{
+        if (other.CompareTag("Player"))
+        {
+            other.transform.parent = null;
+        }
     }
 }

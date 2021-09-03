@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215461633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 0.38, z: 0}
+  m_LocalPosition: {x: 11.59, y: 2.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -1174,6 +1174,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1122838492266383126, guid: 67693a34e01f21c41b2ad6718e2c3134, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67693a34e01f21c41b2ad6718e2c3134, type: 3}
 --- !u!4 &2003399655 stripped
@@ -1200,7 +1204,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointA: {fileID: 1788669533}
   _pointB: {fileID: 1510045447}
-  _speed: 0.4
+  _speed: 1
+--- !u!65 &2003399658
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003399656}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1001 &2011446686
 PrefabInstance:
   m_ObjectHideFlags: 0
