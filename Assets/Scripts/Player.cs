@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class Player : MonoBehaviour
 {
+    public static event Action<int> onUpdateCoinCount;
+
     private CharacterController _controller;
     [SerializeField]
     private float _speed = 5f;
@@ -15,6 +18,19 @@ public class Player : MonoBehaviour
     private float _yVelocity;
     private bool _canDoubleJump;
 
+    private int _coins;
+
+
+	void OnEnable()
+	{
+        Coin.onCoinCollected += CoinCollected;
+	}
+
+
+	void OnDisable()
+	{
+        Coin.onCoinCollected -= CoinCollected;
+    }
 
 
     void Start()
@@ -53,4 +69,11 @@ public class Player : MonoBehaviour
         velocity.y = _yVelocity;
         _controller.Move(velocity * Time.deltaTime);
     }
+
+
+    void CoinCollected()
+	{
+        _coins++;
+        onUpdateCoinCount?.Invoke(_coins);
+	}
 }
