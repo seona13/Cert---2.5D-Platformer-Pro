@@ -14,12 +14,12 @@ public class ElevatorPanel : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+		if (other.CompareTag("Player"))
 		{
 			Player player = other.GetComponent<Player>();
 			if (player != null)
 			{
-				if (player.GetCoins() >= _coinsNeeded)
+				if (Input.GetKeyDown(KeyCode.E) && player.GetCoins() >= _coinsNeeded)
 				{
 					_callButtonRenderer.material.color = Color.green;
 				}

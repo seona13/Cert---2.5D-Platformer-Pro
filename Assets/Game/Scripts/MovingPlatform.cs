@@ -2,58 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MovingPlatform : MonoBehaviour
 {
     [SerializeField]
-    private Transform _targetA, _targetB;
+    private Transform _pointA;
     [SerializeField]
-    private float _speed = 3.0f;
-    private bool _switching = false;
+    private Transform _pointB;
+    [SerializeField]
+    private float _speed;
+
+    private Vector3 _target;
+    private float _step;
 
 
-    // Update is called once per frame
-    void FixedUpdate()
+
+    void Start()
     {
-        if (_switching == false)
-        {
-
-            transform.position = Vector3.MoveTowards(transform.position, _targetB.position, _speed * Time.deltaTime);
-        }
-        else if (_switching == true)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _targetA.position, _speed * Time.deltaTime);
-        }
-
-        if (transform.position == _targetB.position)
-        {
-            _switching = true;
-        }
-        else if (transform.position == _targetA.position)
-        {
-            _switching = false;
-        }
+        _step = _speed * Time.deltaTime;
     }
 
-    //collison detection with player
-    //if we collide with player
-    //take the player parent = this game object
-    private void OnTriggerEnter(Collider other)
+
+    void FixedUpdate()
     {
-        if (other.tag == "Player")
+        if (transform.position == _pointA.position)
+        {
+            _target = _pointB.position;
+        }
+        else if (transform.position == _pointB.position)
+        {
+            _target = _pointA.position;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, _target, _step);
+    }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
             other.transform.parent = this.transform;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+
+    void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             other.transform.parent = null;
         }
     }
-
-    //exit collision 
-    //check if the player exited
-    //take the player parent = null 
 }
