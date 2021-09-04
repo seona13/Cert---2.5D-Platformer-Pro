@@ -7,6 +7,8 @@ public class ElevatorPanel : MonoBehaviour
 {
 	[SerializeField]
 	private Renderer _callButtonRenderer;
+	[SerializeField]
+	private int _coinsNeeded = 8;
 
 
 
@@ -14,7 +16,14 @@ public class ElevatorPanel : MonoBehaviour
 	{
 		if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
 		{
-			_callButtonRenderer.material.color = Color.green;
+			Player player = other.GetComponent<Player>();
+			if (player != null)
+			{
+				if (player.GetCoins() >= _coinsNeeded)
+				{
+					_callButtonRenderer.material.color = Color.green;
+				}
+			}
 		}
 	}
 }

@@ -543,6 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _callButtonRenderer: {fileID: 131171747}
+  _coinsNeeded: 8
 --- !u!54 &442609757
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2725,8 +2726,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _gravity: 1
-  _jumpHeight: 20
+  _gravity: 0.3
+  _jumpHeight: 25
   _coins: 0
   _lives: 3
 --- !u!143 &1798249447

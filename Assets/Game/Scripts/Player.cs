@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
         _controller.Move(velocity * Time.deltaTime);
     }
 
+    public int GetCoins()
+	{
+        return _coins;
+	}
+
     public void AddCoins()
     {
         _coins++;
