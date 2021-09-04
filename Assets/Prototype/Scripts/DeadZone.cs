@@ -4,17 +4,20 @@ using UnityEngine;
 using System;
 
 
-public class DeadZone : MonoBehaviour
+namespace Prototype
 {
-	public static event Action onPlayerFell;
-
-
-
-	void OnTriggerEnter(Collider other)
+	public class DeadZone : MonoBehaviour
 	{
-		if (other.CompareTag("Player"))
+		public static event Action onPlayerFell;
+
+
+
+		void OnTriggerEnter(Collider other)
 		{
-			onPlayerFell?.Invoke();
+			if (other.CompareTag("Player"))
+			{
+				onPlayerFell?.Invoke();
+			}
 		}
 	}
 }

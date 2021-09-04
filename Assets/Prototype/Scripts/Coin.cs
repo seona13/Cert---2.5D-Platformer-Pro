@@ -4,18 +4,21 @@ using UnityEngine;
 using System;
 
 
-public class Coin : MonoBehaviour
+namespace Prototype
 {
-	public static event Action onCoinCollected;
-
-
-
-	private void OnTriggerEnter(Collider other)
+	public class Coin : MonoBehaviour
 	{
-		if (other.CompareTag("Player"))
+		public static event Action onCoinCollected;
+
+
+
+		private void OnTriggerEnter(Collider other)
 		{
-			onCoinCollected?.Invoke();
-			Destroy(gameObject);
+			if (other.CompareTag("Player"))
+			{
+				onCoinCollected?.Invoke();
+				Destroy(gameObject);
+			}
 		}
 	}
 }

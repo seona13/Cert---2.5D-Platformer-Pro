@@ -4,37 +4,40 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UIManager : MonoBehaviour
+namespace Prototype
 {
-	[SerializeField]
-	private Text _livesCount;
-	[SerializeField]
-	private Text _coinCount;
-
-
-
-	void OnEnable()
+	public class UIManager : MonoBehaviour
 	{
-        Player.onUpdateLifeCount += UpdateLivesCount;
-        Player.onUpdateCoinCount += UpdateCoinCount;
-	}
+		[SerializeField]
+		private Text _livesCount;
+		[SerializeField]
+		private Text _coinCount;
 
 
-	void OnDisable()
-	{
-        Player.onUpdateLifeCount -= UpdateLivesCount;
-		Player.onUpdateCoinCount -= UpdateCoinCount;
-	}
+
+		void OnEnable()
+		{
+			Player.onUpdateLifeCount += UpdateLivesCount;
+			Player.onUpdateCoinCount += UpdateCoinCount;
+		}
 
 
-	void UpdateLivesCount(int lives)
-	{
-		_livesCount.text = lives.ToString();
-	}
+		void OnDisable()
+		{
+			Player.onUpdateLifeCount -= UpdateLivesCount;
+			Player.onUpdateCoinCount -= UpdateCoinCount;
+		}
 
 
-	void UpdateCoinCount(int coins)
-	{
-		_coinCount.text = coins.ToString();
+		void UpdateLivesCount(int lives)
+		{
+			_livesCount.text = lives.ToString();
+		}
+
+
+		void UpdateCoinCount(int coins)
+		{
+			_coinCount.text = coins.ToString();
+		}
 	}
 }
