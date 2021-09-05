@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class ElevatorPanel : MonoBehaviour
 {
+	public static event Action onElevatorCalled;
+
 	[SerializeField]
 	private Renderer _callButtonRenderer;
 	[SerializeField]
@@ -22,6 +25,7 @@ public class ElevatorPanel : MonoBehaviour
 				if (Input.GetKeyDown(KeyCode.E) && player.GetCoins() >= _coinsNeeded)
 				{
 					_callButtonRenderer.material.color = Color.green;
+					onElevatorCalled?.Invoke();
 				}
 			}
 		}
