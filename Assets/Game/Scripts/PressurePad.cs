@@ -31,6 +31,8 @@ public class PressurePad : MonoBehaviour
 				{
 					box.material.color = Color.green;
 				}
+
+				Destroy(this);
 			}
 		}
 	}
