@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private bool _canDoubleJump;
     private bool _canWallJump;
     private Vector3 _wallSurfaceNormal;
+    [SerializeField]
+    private float _pushPower = 2f;
 
 
     void OnEnable()
@@ -114,7 +116,22 @@ public class Player : MonoBehaviour
             //Debug.DrawRay(hit.point, hit.normal, Color.blue);
             _wallSurfaceNormal = hit.normal;
             _canWallJump = true;
+            return;
 		}
+
+        if (hit.transform.CompareTag("Pushable"))
+        {
+            Rigidbody body = hit.collider.attachedRigidbody;
+
+            if (body == null || body.isKinematic)
+            {
+                return; // The object isn't actually pushable.
+            }
+
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, 0); // Only push left/right.
+
+            body.velocity = pushDir * _pushPower;
+        }
 	}
 
 
