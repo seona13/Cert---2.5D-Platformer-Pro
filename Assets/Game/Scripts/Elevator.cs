@@ -13,18 +13,18 @@ public class Elevator : MonoBehaviour
     private float _speed;
     
     private bool _isCalled;
-	private Vector3 _target;
+	private bool _isRiding;
 	private float _step;
 
 
 
-	private void OnEnable()
+	void OnEnable()
 	{
         ElevatorPanel.onElevatorCalled += CallElevator;
 	}
 
 
-	private void OnDisable()
+	void OnDisable()
 	{
 		ElevatorPanel.onElevatorCalled -= CallElevator;
 	}
@@ -36,22 +36,46 @@ public class Elevator : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         if (_isCalled)
         {
             transform.position = Vector3.MoveTowards(transform.position, _pointA.position, _step);
         }
-
-        if (transform.position == _pointA.position)
+		if (_isCalled && transform.position == _pointA.position)
 		{
             _isCalled = false;
+		}
+
+		if (_isRiding)
+		{
+			transform.position = Vector3.MoveTowards(transform.position, _pointB.position, _step);
+		}
+		if (_isRiding && transform.position == _pointB.position)
+		{
+            _isRiding = false;
 		}
     }
 
 
-    void CallElevator()
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Player"))
+		{
+			StartCoroutine(RideElevatorRoutine());
+		}
+	}
+
+
+	void CallElevator()
 	{
 		_isCalled = true;
+	}
+
+
+	IEnumerator RideElevatorRoutine()
+	{
+		yield return new WaitForSeconds(0.2f);
+		_isRiding = true;
 	}
 }
