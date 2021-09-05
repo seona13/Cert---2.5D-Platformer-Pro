@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     {
         Coin.onCoinCollected += CoinCollected;
         DeadZone.onPlayerFell += Died;
+        Elevator.onChangeParent += ChangeParent;
+        MovingPlatform.onChangeParent += ChangeParent;
     }
 
 
@@ -42,6 +44,8 @@ public class Player : MonoBehaviour
     {
         Coin.onCoinCollected -= CoinCollected;
         DeadZone.onPlayerFell -= Died;
+        Elevator.onChangeParent -= ChangeParent;
+        MovingPlatform.onChangeParent -= ChangeParent;
     }
 
 
@@ -136,4 +140,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _controller.enabled = true;
     }
+
+
+    void ChangeParent(Transform newParent)
+	{
+        transform.parent = newParent;
+	}
 }

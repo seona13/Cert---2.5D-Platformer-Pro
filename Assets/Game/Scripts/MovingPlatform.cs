@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class MovingPlatform : MonoBehaviour
 {
+    public static event Action<Transform> onChangeParent;
+
     [SerializeField]
     private Transform _pointA;
     [SerializeField]
@@ -42,7 +45,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.parent = this.transform;
+            onChangeParent?.Invoke(this.transform);
         }
     }
 
@@ -51,7 +54,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.parent = null;
+            onChangeParent?.Invoke(null);
         }
     }
 }

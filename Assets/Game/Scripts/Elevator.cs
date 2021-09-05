@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 public class Elevator : MonoBehaviour
 {
+	public static event Action<Transform> onChangeParent;
+
     [SerializeField]
     private Transform _pointA;
     [SerializeField]
@@ -47,15 +50,16 @@ public class Elevator : MonoBehaviour
             _isCalled = false;
 		}
 
-		if (_isRiding)
-		{
-			transform.position = Vector3.MoveTowards(transform.position, _pointB.position, _step);
-		}
+        if (_isRiding)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _pointB.position, _step);
+        }
 		if (_isRiding && transform.position == _pointB.position)
 		{
-            _isRiding = false;
+			_isRiding = false;
+			onChangeParent?.Invoke(null);
 		}
-    }
+	}
 
 
 	void OnTriggerEnter(Collider other)
@@ -77,5 +81,6 @@ public class Elevator : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.2f);
 		_isRiding = true;
+		onChangeParent?.Invoke(this.transform);
 	}
 }
