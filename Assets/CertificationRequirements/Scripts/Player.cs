@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private Vector3 _direction;
     private Vector3 _velocity;
     private float _yVelocity;
+    private bool _isJumping;
 
 
 
@@ -39,6 +40,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (_isJumping)
+        {
+                _isJumping = false;
+            _anim.SetBool("IsJumping", _isJumping);
+        }
+
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (_controller.isGrounded)
@@ -47,9 +54,17 @@ public class Player : MonoBehaviour
             _velocity = _direction * _speed;
             _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
+            if (_isJumping)
+            {
+                 _isJumping = false;
+               _anim.SetBool("IsJumping", _isJumping);
+            }
+
             if (Input.GetKeyDown(KeyCode.Space))
 			{
                 _yVelocity = _jumpHeight;
+                _isJumping = true;
+                _anim.SetBool("IsJumping", _isJumping);
 			}
 		}
         else
