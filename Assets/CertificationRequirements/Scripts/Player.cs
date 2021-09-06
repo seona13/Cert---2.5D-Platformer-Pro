@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private CharacterController _controller;
+    private Animator _anim;
 
     [SerializeField]
     private float _speed = 5f;
@@ -27,17 +28,24 @@ public class Player : MonoBehaviour
 		{
             Debug.LogError("Player missing CharacterController.");
 		}
+
+        _anim = GetComponentInChildren<Animator>();
+        if (_anim == null)
+		{
+            Debug.LogError("Player Model missing Animator.");
+		}
     }
 
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (_controller.isGrounded)
 		{
             _direction = new Vector3(0, 0, horizontalInput);
             _velocity = _direction * _speed;
+            _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
             if (Input.GetKeyDown(KeyCode.Space))
 			{
