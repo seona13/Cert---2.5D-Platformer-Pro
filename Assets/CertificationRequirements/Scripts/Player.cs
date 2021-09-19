@@ -54,6 +54,13 @@ public class Player : MonoBehaviour
             _velocity = _direction * _speed;
             _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
+            if (horizontalInput != 0)
+            {
+                Vector3 facing = transform.localEulerAngles;
+                facing.y = _direction.z > 0 ? 0 : 180;
+                transform.localEulerAngles = facing;
+            }
+
             if (_isJumping)
             {
                  _isJumping = false;
