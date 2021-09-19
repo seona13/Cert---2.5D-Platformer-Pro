@@ -22,7 +22,19 @@ public class Player : MonoBehaviour
 
 
 
-    void Start()
+	private void OnEnable()
+	{
+        Ledge.onLedgeGrab += GrabLedge;
+	}
+
+
+	private void OnDisable()
+	{
+        Ledge.onLedgeGrab -= GrabLedge;
+	}
+
+
+	void Start()
     {
         _controller = GetComponent<CharacterController>();
         if (_controller == null)
@@ -40,19 +52,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (_isJumping)
-        {
-                _isJumping = false;
-            _anim.SetBool("IsJumping", _isJumping);
-        }
+        CalculateMovement();
+    }
 
+
+    void CalculateMovement()
+	{
         float horizontalInput = Input.GetAxisRaw("Horizontal");
+        _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
         if (_controller.isGrounded)
-		{
+        {
             _direction = new Vector3(0, 0, horizontalInput);
             _velocity = _direction * _speed;
-            _anim.SetFloat("Speed", Mathf.Abs(horizontalInput));
 
             if (horizontalInput != 0)
             {
@@ -63,23 +75,30 @@ public class Player : MonoBehaviour
 
             if (_isJumping)
             {
-                 _isJumping = false;
-               _anim.SetBool("IsJumping", _isJumping);
+                _isJumping = false;
+                _anim.SetBool("IsJumping", _isJumping);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
-			{
+            {
                 _yVelocity = _jumpHeight;
                 _isJumping = true;
                 _anim.SetBool("IsJumping", _isJumping);
-			}
-		}
+            }
+        }
         else
-		{
+        {
             _yVelocity -= _gravity;
-		}
+        }
 
         _velocity.y = _yVelocity;
         _controller.Move(_velocity * Time.deltaTime);
     }
+
+
+    void GrabLedge()
+	{
+        _controller.enabled = false;
+        _anim.SetBool("GrabbedLedge", true);
+	}
 }
