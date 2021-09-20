@@ -192,10 +192,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4867145091992889512, guid: dd3aaceca7ecd844b8b88882f18b2793, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd3aaceca7ecd844b8b88882f18b2793, type: 3}
 --- !u!1 &1020939953
@@ -306,7 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e973b490e6be55040a84117fa4a0bc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _snapToPoint: {x: 0.53, y: 68.12, z: 123.4}
+  _snapToPoint: {x: 0.53, y: 68.19, z: 123.17}
+  _standPos: {x: 0.53, y: 74.36, z: 125.13}
 --- !u!1 &1216695342
 GameObject:
   m_ObjectHideFlags: 0

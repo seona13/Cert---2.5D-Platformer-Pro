@@ -19,18 +19,22 @@ public class Player : MonoBehaviour
     private Vector3 _velocity;
     private float _yVelocity;
     private bool _isJumping;
+    private bool _isOnLedge;
+    private Ledge _activeLedge;
 
 
 
 	private void OnEnable()
 	{
         Ledge.onLedgeGrab += GrabLedge;
+        ClimbUpBehaviour.onClimbUpComplete += ClimbUpComplete;
 	}
 
 
 	private void OnDisable()
 	{
         Ledge.onLedgeGrab -= GrabLedge;
+        ClimbUpBehaviour.onClimbUpComplete -= ClimbUpComplete;
 	}
 
 
@@ -53,6 +57,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+
+        if (_isOnLedge)
+		{
+			if (Input.GetKeyDown(KeyCode.E))
+			{
+                _anim.SetTrigger("ClimbUp");
+			}
+		}
     }
 
 
@@ -96,10 +108,24 @@ public class Player : MonoBehaviour
     }
 
 
-    void GrabLedge(Vector3 snapToPos)
+    void GrabLedge(Ledge current)
 	{
+        _activeLedge = current;
+        _isOnLedge = true;
+
         _controller.enabled = false;
+        transform.position = _activeLedge.GetSnapToPoint();
+
         _anim.SetBool("GrabbedLedge", true);
-        transform.position = snapToPos;
+        _isJumping = false;
+        _anim.SetBool("IsJumping", _isJumping);
 	}
+
+
+    void ClimbUpComplete()
+	{
+        transform.position = _activeLedge.GetStandPos();
+        _anim.SetBool("GrabbedLedge", false);
+        _controller.enabled = true;
+    }
 }
