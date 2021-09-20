@@ -6,7 +6,10 @@ using System;
 
 public class Ledge : MonoBehaviour
 {
-	public static event Action onLedgeGrab;
+	public static event Action<Vector3> onLedgeGrab;
+
+	[SerializeField]
+	private Vector3 _snapToPoint;
 
 
 
@@ -14,7 +17,7 @@ public class Ledge : MonoBehaviour
 	{
 		if (other.CompareTag("LedgeGrabChecker"))
 		{
-			onLedgeGrab?.Invoke();
+			onLedgeGrab?.Invoke(_snapToPoint);
 		}
 	}
 }

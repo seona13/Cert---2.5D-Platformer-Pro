@@ -96,9 +96,10 @@ public class Player : MonoBehaviour
     }
 
 
-    void GrabLedge()
+    void GrabLedge(Vector3 snapToPos)
 	{
         _controller.enabled = false;
         _anim.SetBool("GrabbedLedge", true);
+        transform.position = snapToPos;
 	}
 }
