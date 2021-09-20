@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         _isOnLedge = true;
 
         _controller.enabled = false;
-        transform.position = _activeLedge.GetSnapToPoint();
+        transform.position = _activeLedge.GetHandPos();
 
         _anim.SetBool("GrabbedLedge", true);
         _isJumping = false;

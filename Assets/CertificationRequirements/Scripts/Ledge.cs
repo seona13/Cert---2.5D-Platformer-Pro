@@ -9,9 +9,9 @@ public class Ledge : MonoBehaviour
 	public static event Action<Ledge> onLedgeGrab;
 
 	[SerializeField]
-	private Vector3 _snapToPoint;
+	private Transform _handPos;
 	[SerializeField]
-	private Vector3 _standPos;
+	private Transform _standPos;
 
 
 
@@ -24,14 +24,14 @@ public class Ledge : MonoBehaviour
 	}
 
 
-	public Vector3 GetSnapToPoint()
+	public Vector3 GetHandPos()
 	{
-		return _snapToPoint;
+		return _handPos.position;
 	}
 
 
 	public Vector3 GetStandPos()
 	{
-		return _standPos;
+		return _standPos.position;
 	}
 }
