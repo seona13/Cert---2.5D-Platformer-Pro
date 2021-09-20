@@ -97,6 +97,10 @@ public class Player : MonoBehaviour
                 _isJumping = true;
                 _anim.SetBool("IsJumping", _isJumping);
             }
+            else if (Input.GetKeyDown(KeyCode.LeftShift))
+			{
+                _anim.SetTrigger("Roll");
+			}
         }
         else
         {
